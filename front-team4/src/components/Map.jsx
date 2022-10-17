@@ -9,37 +9,39 @@ import {
   GeoJSON,
 } from "react-leaflet";
 import { useState } from "react";
-import geoData from "../barris.json";
+//import geoData from "../barris.json";
 
-function Map() {
-  //const [nome, setNome] = useState("");
-
+function Map(props) {
   const mapStyle = {
     fillColor: "white",
     color: "red",
-    fillOpacity: 0.8,
+    fillOpacity: 0.5,
   };
 
   function highlightFeature(e) {
-    console.log("e.target.setStyle", e.target);
-
+    //console.log("e.target.setStyle", e.target);
     var layer = e.target;
     layer.setStyle({
-      //weight: 3,
-      fillcolor: "blue",
+      weight: 3,
+      fillcolor: "red",
       //dashArray: '',
       fillOpacity: 1,
     });
   }
 
   function resetHighlight(e) {
-    //geojson.resetStyle(e);
-    //info.update();
+    var layer = e.target;
+    layer.setStyle({
+      weight: 3,
+      fillcolor: "blue",
+      //dashArray: '',
+      fillOpacity: 0.5,
+    });
   }
 
-  function openTable(e) {
-    console.log("e.target onclick", e.target);
-    alert("hola");
+  function openCard(e) {
+    //console.log("e.target onclick", e.target.feature.properties.NOM);
+    props.setNombreBarrio(e.target.feature.properties.NOM);
     //nombreBarrio.innerHTML = e.target.feature.properties.NOM;
     //datosBarrio.innerHTML = e.target.feature.properties.PERIMETRE;
   }
@@ -48,26 +50,24 @@ function Map() {
     layer.on({
       mouseover: highlightFeature,
       mouseout: resetHighlight,
-      click: openTable,
+      click: openCard,
     });
   };
-
   return (
     <>
-    <div className="m-9">
-
-      <MapContainer center={[41.4, 2.17]} zoom={12} scrollWheelZoom={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <GeoJSON
-          data={geoData.features}
-          style={mapStyle}
-          onEachFeature={onEachBarrio}
-        />
-      </MapContainer>
-    </div>
+      <div className="m-9">
+        <MapContainer center={[41.4, 2.17]} zoom={12} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <GeoJSON
+            data={props.geoData.features}
+            style={mapStyle}
+            onEachFeature={onEachBarrio}
+          />
+        </MapContainer>
+      </div>
     </>
   );
 }
