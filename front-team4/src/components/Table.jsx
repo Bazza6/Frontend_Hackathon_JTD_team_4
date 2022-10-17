@@ -1,54 +1,61 @@
-import { useState } from "react";
+//import axios from "axios";
+import {  useState } from "react";
 
 function Table(props) {
+
   const [order, setOrder] = useState("ASC"); //ascendente
+  //const [barrios, setBarrios] = useState([]); 
 
   //funzione per ordinare che prende come parametro la colonna
   const sorting = (column) => {
     console.log("column", column);
 
     if (order === "ASC") {
-      const sorted = [...props.arrayPeople].sort((a, b) =>
+      const sorted = [...props.barrios].sort((a, b) =>
         a[column] > b[column] ? 1 : -1
       );
-      props.setArrayPeople(sorted);
+      props.setBarrios(sorted);
       setOrder("DSC");
     }
 
     if (order === "DSC") {
-      const sorted = [...props.arrayPeople].sort((a, b) =>
+      const sorted = [...props.barrios].sort((a, b) =>
         a[column] < b[column] ? 1 : -1
       );
-      props.setArrayPeople(sorted);
+      props.setBarrios(sorted);
       setOrder("ASC");
     }
   };
 
-  let displayPeople = props.arrayPeople.map((person, index) => {
-    const { name, height, mass, hair_color } = person;
+  let dislpayBarrios = props.barrios.map((barrio, index) => {
     return (
       <tr key={index}>
-        <td> {name}</td>
-        <td>{height}</td>
-        <td>{mass}</td>
-        <td>{hair_color}</td>
+        <td>{barrio['NOMBRE DEL BARRIO']}</td>
+        <td>{barrio['INDICE DE SOBREENVEJICIMIENTO']}</td>
+        <td>{barrio['NUMERO DE PARADOS']}</td>
+        <td>{barrio['POBLACION DE MAS DE 65 AÑOS QUE VIVE SOLA %']}</td>
+        <td>{barrio['RENTA FAMILIAR (2017)']}</td>
+        <td>{barrio['TITULADOS SUPERIORES Y CFGS %']}</td>
       </tr>
     );
   });
 
   return (
-    <div className="container">
-      <h1>react table</h1>
-      <table className="table">
+    <div>
+      <table>
         <thead>
           <tr>
-            <th onClick={() => sorting("name")}>nome</th>
-            <th onClick={() => sorting("height")}>altezza</th>
-            <th onClick={() => sorting("mass")}>peso</th>
-            <th onClick={() => sorting("hair_color")}>colore capelli</th>
+            <th onClick={() => sorting("NOMBRE DEL BARRIO")}>NOMBRE DEL BARRIO</th>
+            <th onClick={() => sorting("INDICE DE SOBREENVEJICIMIENTO")}>INDICE DE SOBREENVEJICIMIENTO</th>
+            <th onClick={() => sorting("NUMERO DE PARADOS")}>NUMERO DE PARADOS</th>
+            <th onClick={() => sorting("POBLACION DE MAS DE 65 AÑOS QUE VIVE SOLA %")}>POBLACION DE MAS DE 65 AÑOS QUE VIVE SOLA %</th>
+            <th onClick={() => sorting("RENTA FAMILIAR (2017)")}>RENTA FAMILIAR (2017)</th>
+            <th onClick={() => sorting("TITULADOS SUPERIORES Y CFGS %:")}>TITULADOS SUPERIORES Y CFGS %</th>
           </tr>
         </thead>
-        <tbody>{displayPeople}</tbody>
+        <tbody>
+          {dislpayBarrios}
+          </tbody>
       </table>
     </div>
   );
