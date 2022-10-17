@@ -1,8 +1,6 @@
 import { useState } from "react";
 
 function Table(props) {
-  //console.log(props.arrayPeople[0].[name])
-
   const [order, setOrder] = useState("ASC"); //ascendente
 
   //funzione per ordinare che prende come parametro la colonna
@@ -37,15 +35,6 @@ function Table(props) {
       </tr>
     );
   });
-  /*         return (
-                <tr key={index}>
-                    <td> {person.name}</td >
-                    <td>{person.height}</td>
-                    <td>{person.mass}</td>
-                    <td>{person.hair_color}</td>
-                </tr >
-            )
-        }) */
 
   return (
     <div className="container">
