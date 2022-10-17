@@ -4,12 +4,15 @@ import Header from "./Header";
 import Map from "./Map";
 import geoData from "../barris.json";
 import axios from "axios";
-//import Table from "./Table";
+import Table from "./Table";
 import Text from "./Text";
 
 const Main = () => {
   const [nombreBarrio, setNombreBarrio] = useState("el Raval");
   const [datosBarrio, setDatoBarrio] = useState();
+
+  const [barrios, setBarrios] = useState([]);  // array barrios
+
 
   //console.log("nombre barrio:", nombreBarrio);
 
@@ -28,7 +31,20 @@ const Main = () => {
       .catch(() => console.log("algo ha ido mal"));
   }, [nombreBarrio]);
 
-  console.log("datos barrio", datosBarrio);
+// TODOS LOS BARRIOS
+  useEffect(() => {
+    const baseURL = 'https://hackaton-td-equip-6.herokuapp.com/barris';
+    axios
+      .get(baseURL)
+      .then((response) => {
+        setBarrios(response.data);
+        console.log("response TABLA", response.data);
+      })
+      .catch(() => console.log("algo ha ido mal TABLA"));
+  }, []);
+
+  
+  //console.log("datos barrio", datosBarrio);
   return (
     <div>
       <Header />
@@ -37,7 +53,7 @@ const Main = () => {
         <Map geoData={geoData} setNombreBarrio={setNombreBarrio} />
         {datosBarrio && <Card datosBarrio={datosBarrio} />}
       </div>
-      {/* <Table /> */}
+      {barrios.length>0 &&<Table barrios={barrios} setBarrios={setBarrios}/>}
     </div>
   );
 };
