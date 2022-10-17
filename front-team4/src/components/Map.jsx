@@ -54,6 +54,8 @@ function Map() {
 
   return (
     <>
+    <div className="m-9">
+
       <MapContainer center={[41.4, 2.17]} zoom={12} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -65,6 +67,7 @@ function Map() {
           onEachFeature={onEachBarrio}
         />
       </MapContainer>
+    </div>
     </>
   );
 }
