@@ -55,7 +55,7 @@ function Map(props) {
   };
   return (
     <>
-      <div className="m-9">
+    <div className="m-20 drop-shadow-md">
         <MapContainer center={[41.4, 2.17]} zoom={12} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -68,6 +68,7 @@ function Map(props) {
           />
         </MapContainer>
       </div>
+
     </>
   );
 }

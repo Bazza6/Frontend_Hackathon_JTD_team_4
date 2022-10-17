@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import Header from "./Header";
 import Map from "./Map";
-//import CallApi from "./CallApi";
 import geoData from "../barris.json";
 import axios from "axios";
 //import Table from "./Table";
+import Text from "./Text";
 
 const Main = () => {
   const [nombreBarrio, setNombreBarrio] = useState("el Raval");
@@ -32,6 +32,7 @@ const Main = () => {
   return (
     <div>
       <Header />
+      <Text/>
       <div className="flex justify-between">
         <Map geoData={geoData} setNombreBarrio={setNombreBarrio} />
         {datosBarrio && <Card datosBarrio={datosBarrio} />}
